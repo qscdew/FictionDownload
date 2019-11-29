@@ -1,0 +1,94 @@
+
+{% extends "base.html" %} 
+{% block header %}
+ <title>{{ book.name }} | Mikoto推理小说</title>
+  <h1>{{ book.name}}</h1><a  href="{% url 'writer' book.writer.id %}">   {{ book.writer.name }}</a>
+{% endblock header %}
+
+{% block content %}
+
+<style> 
+.div-a{ float:left;width:20%;} 
+.div-b{ float:right;width:78%;} 
+</style> 
+<style type="text/css">
+.demo{
+  padding: 25px;
+  background-color: rgba(0,0,0,0.5);/* IE9、标准浏览器、IE6和部分IE7内核的浏览器(如QQ浏览器)会读懂 */
+}
+.demo p{
+  color: #FFFFFF;
+}
+<body> 
+<div class="div-a">
+    <a  href="{% url 'writer' book.writer.id %}">{{ book.writer.name }}</a>
+    上传者：{{ book.owner.username }}<br>
+    下载量：{{ book.xzl }}<br><br>
+    <!-- Button trigger modal -->
+<button type="button" class="btn btn-default btn-lg" style="opacity:0.8; filter:alpha(opacity=50);" data-toggle="modal" data-target="#myModal">
+  点我
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">{{ book.name }}</h4>
+      </div>
+      <div class="modal-body ">
+    <a  type="button" class="btn btn-default" href='http://mikoto.site/{{ book.downurl }}'>下载</a>
+    
+    <a  type="button" class="btn btn-default" href='http://mikoto.site/book/read/{{ book.id }}'>阅读</a> 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+    <!-- Button trigger modal -->
+</div>
+<div class="div-b">
+<style type="text/css">
+pre {
+ white-space: pre-wrap;
+ word-wrap: break-word;
+}
+</style>
+
+<div class="demo">{{ book.jianjie|linebreaks }}</div>
+
+    <!-- Button trigger modal -->
+<button type="button" align="center" class="btn btn-default btn-lg" style="opacity:0.8; filter:alpha(opacity=50);" data-toggle="modal" data-target="#myModal">
+  点我
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">{{ book.name }}</h4>
+      </div>
+      <div class="modal-body ">
+              上传者：{{ book.owner.username }}<br>
+    下载量：{{ book.xzl }}<br>
+    <a  type="button" class="btn btn-default" href='http://mikoto.site/{{ book.downurl }}'>下载</a>
+    
+    <a  type="button" class="btn btn-default" href='http://mikoto.site/book/read/{{ book.id }}'>阅读</a> 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+    <!-- Button trigger modal -->
+</div>
+</body> 
+
+{% endblock content %}
+ 

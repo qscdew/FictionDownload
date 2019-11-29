@@ -1,0 +1,95 @@
+{% extends "base.html" %} 
+{% block header %}
+  <h1>书籍列表</h1>
+{% endblock header %}
+
+{% block content %}
+    <title>下载推理小说</title>
+
+
+
+
+<div class="container-fluid">
+<div class="row">
+   {% for book in books %}
+
+     
+<a class="btn btn-default" href="{% url 'book' book.id %}" role="button">
+
+
+    
+        <h4>{{ book.name }}</h4>
+        <p>{{ book.writer }}</p>
+
+</a>
+
+           {% endfor %}  
+</div>
+</div>
+
+
+<div class="row">
+<div class="container-fluid">
+   {% for book in books %}
+
+  <div class="col-xs-6 col-md-3">
+    <a href="{% url 'book' book.id %}" class="thumbnail">
+      
+      
+              <b>{{ book.name }}</b><br>
+        {{ book.writer }}
+    </a>
+  </div>
+{% endfor %} 
+
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="container" style=" text-align:center;">
+
+    <ul class="pagination" id="pager">
+        {#上一页按钮开始#}
+        {# 如果当前页有上一页#}
+        {% if books.has_previous %}
+            {#  当前页的上一页按钮正常使用#}
+            <li class="previous"><a href="/?page={{ books.previous_page_number }}">上一页</a></li>
+        {% else %}
+            {# 当前页的不存在上一页时,上一页的按钮不可用#}
+            <li class="previous disabled"><a href="#">上一页</a></li>
+        {% endif %}
+        {#上一页按钮结束#}
+        {# 页码开始#}
+        {% for num in paginator.page_range %}
+
+            {% if num == currentPage %}
+                <li class="item active"><a href="/?page={{ num }}">{{ num }}</a></li>
+            {% else %}
+                <li class="item"><a href="/?page={{ num }}">{{ num }}</a></li>
+
+            {% endif %}
+        {% endfor %}
+        {#页码结束#}
+        {# 下一页按钮开始#}
+        {% if books.has_next %}
+            <li class="next"><a href="/?page={{ books.next_page_number }}">下一页</a></li>
+        {% else %}
+            <li class="next disabled"><a href="#">下一页</a></li>
+        {% endif %}
+        {# 下一页按钮结束#}
+    </ul>
+</div>
+  
+{% endblock content %}
+ ces

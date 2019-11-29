@@ -1,0 +1,67 @@
+{% extends "base.html" %} 
+{% block header %}
+<title>{{ book.name }} | Mikoto推理小说</title>
+ <h1><span class="glyphicon glyphicon-book" aria-hidden="true">{{ book.name }}</span>
+</h1>
+{% endblock header %}
+
+{% block content %}
+
+<style type="text/css">
+
+
+#percentageCounter {
+	position: fixed;
+	bottom: 10px;
+	right: 10px;
+}
+.demo{
+  padding: 25px;
+  background-color: rgba(0,0,0,0.5);
+}
+.demo p{
+  color: #FFFFFF;
+}
+
+</style>
+
+
+<html>
+
+<body>
+
+<div id="navigation">
+</div>
+<div id="percentageCounter"><h1>0%</h1></div>
+<div class="content">
+{% if book.writer.id == 15 %}
+<body  onselectstart="return false"><div class="demo">{{ neirong|linebreaks }}</div></body>
+{% else %}
+<body><div class="demo">{{ neirong|linebreaks }}</div></body>
+{% endif %}
+
+</div>
+
+<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+<script>
+$(window).scroll(function(){
+	var targetPercentage = 70;
+	var navBarHeight = 66;
+	var targetID = "#navigation";
+	var scrollTo = $(window).scrollTop(),
+	docHeight = $(document).height(),
+	windowHeight = $(window).height();
+	scrollPercent = (scrollTo / (docHeight-windowHeight)) * 100;
+	scrollPercent = scrollPercent.toFixed(1);
+	$('#percentageCounter h1').text(scrollPercent+"%");
+	if(scrollPercent > targetPercentage){
+		$(targetID).css({top:'0'});
+	}
+	if(scrollPercent < targetPercentage){
+		$(targetID).css({ top: '-'+navBarHeight+'px' });
+	}
+}).trigger('scroll');
+</script>
+</body></html>
+  
+{% endblock content %}

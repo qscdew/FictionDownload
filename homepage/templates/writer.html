@@ -1,0 +1,76 @@
+
+{% extends "base.html" %} 
+{% block header %}
+<title>{{ writer.name}} | Mikoto推理小说</title>
+  <h2>{{ writer.name}}</h2>
+{% endblock header %}
+
+{% block content %}
+ 
+      <style type="text/css">
+        pre {
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        }
+        .c{
+display:inline;
+}
+      </style>
+
+
+<div class="row">
+<div class="container-fluid">
+   {% for book in books %}
+
+  <div class="col-xs-6 col-md-2">
+
+    <button type="button" class="thumbnail btn-block" style="opacity:0.8; filter:alpha(opacity=50);" data-toggle="modal" data-target="#myModal{{book.id}}">
+      <div align="center">
+              <b>{{ book.name }}</b><br>
+        {{ book.writer }}
+        </div>
+</button>
+
+
+    <!-- Modal -->
+<div class="modal fade" id="myModal{{book.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h3 class="modal-title" id="myModalLabel"><b>{{ book.name }}</b></h3>
+        <div>
+         <a  class='c' href="{% url 'writer' book.writer.id %}">{{ book.writer.name }}</a>
+                  <p class='c' align="right">上传者：{{ book.owner.username }}</p>
+      </div></div>
+      <div class="modal-body ">
+
+        <pre>{{ book.jianjie }}</pre> 
+      </div>
+      <div class="modal-footer">
+                {% if book.writer.id == 15 %}
+      <a  type="button" class="btn btn-default disabled" href='http://mikoto.site/{{ book.downurl }}'>不让你下载<span class="badge">999</span></a>
+      {% else %}
+                        {% if user.is_authenticated %}
+<a  type="button" class="btn btn-default" href='http://mikoto.site/{{ book.downurl }}'>下载<span class="badge">{{ book.xzl }}</span></a>
+            {% else %}
+<a  type="button" class="btn btn-default disabled" href='http://mikoto.site/{{ book.downurl }}'>登录后下载<span class="badge">{{ book.xzl }}</span></a>
+            {% endif %}
+      {% endif %}
+        <a  type="button" class="btn btn-default" href='http://mikoto.site/book/read/{{ book.id }}'>阅读</a>
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+      </div>
+    </div>
+  </div>
+</div>
+    <!-- Button trigger modal -->
+  </div>
+{% endfor %} 
+
+</div>
+</div>
+
+
+
+{% endblock content %}
+ 

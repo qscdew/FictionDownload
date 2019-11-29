@@ -1,0 +1,16 @@
+{% extends "base.html" %} 
+{% block header %}
+<h2>注册一个新账号吧ฅʕ•̫͡•ʔฅ</h2>
+{% endblock header %}
+
+{% block content %}
+<form method="post" action="{% url 'users:register' %}" class="form">
+{% csrf_token %}
+{{ form.as_p }} 
+<button name="submit" class="btn btn-primary">注册</button>
+<input type="hidden" name="next" value="{% url 'index' %}" />
+</form>
+
+
+
+{% endblock content %}

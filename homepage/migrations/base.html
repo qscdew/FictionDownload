@@ -1,0 +1,149 @@
+{% load bootstrap3 %}
+
+<!-- /static/img/1.jpg -->
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<style type="text/css">
+
+ body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+background-image:url(/static/img/4.jpg);
+background-position: center ;
+background-repeat: no-repeat;
+background-attachment: fixed;
+}
+@media screen and (max-width: 960px){
+ body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+background-image:url(/static/img/6.jpg);
+background-position: center;
+background-repeat: no-repeat;
+background-attachment: fixed;
+}
+}
+@media screen and (max-width: 600px){
+ body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+background-image:url(/static/img/7.jpg);
+background-position: center;
+background-repeat: no-repeat;
+background-attachment: fixed;
+
+}
+}
+
+
+.content {
+  flex: 1;
+  
+}
+</style>
+
+  <head>
+  
+      <!-- Google Adsense -->
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-6238676442259341",
+    enable_page_level_ads: true
+  });
+</script>
+<!-- Google Adsense -->
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-117280003-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-117280003-1');
+</script>
+
+    <meta charset="gbk2312">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <title>Mikoto推理小说</title>
+    <meta name="baidu-site-verification" content="8Hchercxeo" />
+    <link rel="shortcut icon" type="image/png" href="{{STATIC_URL}}/favicon.ico"/>
+
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+
+  </head>
+
+  <body>
+
+    <!-- Static navbar -->
+
+    <nav class="navbar navbar-default navbar-static-top"  style="opacity:0.8; filter:alpha(opacity=50);">
+      <div class="container">
+
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed"
+              data-toggle="collapse" data-target="#navbar"
+              aria-expanded="false" aria-controls="navbar">
+          </button>
+          <a class="navbar-brand" href="{% url 'index' %}">Mikoto推理小说</a>
+        </div>
+
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="{% url 'booklist' %}">书籍列表</a></li>
+            <li><a href="{% url 'newwriter' %}">作者列表</a></li>
+            <li><a href="http://mikoto.site/writers/15/">坂御坂御</a></li>
+            <li><a href="{% url 'newbook' %}">添加新书</a></li>
+            <li><a href="{% url 'liuyan' %}">留言板</a></li>
+     
+
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+            {% if user.is_authenticated %}
+              <li><a>您好,{{ user.username }}!</a></li>
+              <li><a href="{% url 'users:logout' %}">退出</a></li>
+            {% else %}
+              <li><a href="{% url 'users:register' %}">注册</a></li>
+              <li><a href="{% url 'users:login' %}">登录</a></li>
+            {% endif %}
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+
+
+
+    <div class="container">
+     
+      <div class="page-header">
+        {% block header %}{% endblock header %}
+      </div>
+      
+      <div> 
+        {% block content %}{% endblock content %}
+      </div>
+     
+        <footer>
+        {% block footer %}
+      
+        {% endblock %}</footer>
+      </div>
+
+    </div> <!-- /container -->
+
+
+
+
+
+  </body>
+</html>

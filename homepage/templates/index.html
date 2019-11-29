@@ -1,0 +1,33 @@
+{% extends "base.html" %} 
+{% block header %}
+<title>Mikoto推理小说</title>
+{% endblock header %}
+
+{% block content %}
+<div class="jumbotron" style="background-color:transparent;height:100%;">
+ <center><h1><font face="Times">W E L C O M E !!</font></h1></center>
+  
+  <center>
+  
+    <div class="input-group" align="center">
+    <form action={% url 'index' %} method="post">
+    {% csrf_token %}
+ 
+      <input type="text" name="bookname" style="opacity:0.8; filter:alpha(opacity=50);" class="form-control" placeholder="你想看什么小说呢？">
+
+        <button class="btn btn-default" style="opacity:0.6; filter:alpha(opacity=50);" type="submit">Go!</button>
+
+      </form>
+    </div>
+
+
+</center>
+<!-- 
+  <br><p><a class="btn btn-primary btn-lg" href="{% url 'booklist' %}" role="button">more</a></p>-->
+</div>
+
+
+{% endblock content %}
+        {% block footer %}
+        
+        {% endblock %}

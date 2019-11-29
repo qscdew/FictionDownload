@@ -1,0 +1,18 @@
+{% extends "base.html" %} 
+{% block header %}
+<h2>┏ (゜ω゜)=☟赶快登陆开始玩耍吧</h2>
+{% endblock header %}
+{% block content %}
+
+<form method="post" action="{% url 'users:login' %}" class="form">
+{% csrf_token %}
+{{ form.as_p }} 
+
+<button name="submit">登录</button>
+
+<input type="hidden" name="next" value="{% url 'index' %}" />
+</form>
+<br><li><a href="{% url 'users:register' %}">没有账号？点我注册</a></li>
+
+
+{% endblock content %}

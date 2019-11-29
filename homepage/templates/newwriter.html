@@ -1,0 +1,42 @@
+{% extends "base.html" %} 
+{% block header %}
+<title>作者列表 | Mikoto推理小说</title>
+<h2>作者列表</h2>
+{% endblock header %}
+{% block content %}
+<style> 
+.div-a{ float:left;width:35%;} 
+.div-b{ float:right;width:60%;} 
+</style> 
+<html>
+<body> 
+<div class="div-a">
+<ul class="list-group" style="opacity:0.8; filter:alpha(opacity=50);">
+{% for writer in writers %}
+
+  <li class="list-group-item">
+  <div align="center"><a  href="{% url 'writer' writer.id %}">{{ writer.name }}</a> </div>
+
+  </li>
+
+{% endfor %}
+</ul>
+
+</div>
+
+<div class="div-b">
+<h3>增加新的作家：</h3>
+<form method='post'>
+</form>
+
+<form action="/newwriter/" method="POST" enctype="multipart/form-data">
+{% csrf_token %}
+{{ form }}<br>
+
+<br><button type="submit" class="btn btn-default" style="opacity:0.7; filter:alpha(opacity=50);">提交</button>
+</form>
+</div>
+
+</body></html>
+{% endblock content %}
+ 

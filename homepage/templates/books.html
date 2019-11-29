@@ -1,0 +1,128 @@
+{% extends "base.html" %} 
+{% block header %}
+<title>书籍列表 | Mikoto推理小说</title>
+ <h1><span class="glyphicon glyphicon-book" aria-hidden="true">书籍列表</span>
+</h1>
+{% endblock header %}
+
+{% block content %}
+
+
+<html>
+      <style type="text/css">
+        pre {
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        }
+        .c{
+display:inline;
+}
+
+      </style>
+
+<body>
+<div class="row">
+<div class="container-fluid">
+   {% for book in books %}
+
+  <div class="col-xs-6 col-md-2">
+
+    <button type="button" class="thumbnail btn-block" style="opacity:0.8; filter:alpha(opacity=50);" data-toggle="modal" data-target="#myModal{{book.id}}">
+      <div align="center">
+              <b>{{ book.name }}</b><br>
+        {{ book.writer }}
+        </div>
+</button>
+
+
+    <!-- Modal -->
+<div class="modal fade" id="myModal{{book.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h3 class="modal-title" id="myModalLabel"><b>{{ book.name }}</b></h3>
+</div>
+      <div class="modal-body ">
+        <div>
+         <a  class='c' href="{% url 'writer' book.writer.id %}">{{ book.writer.name }}</a>
+                  <p class='c' align="right">上传 者：{{ book.owner.username }}</p>
+      </div>
+        <pre>{{ book.jianjie }}</pre> 
+      </div>
+      <div class="modal-footer">
+     
+      {% if book.writer.id == 15 %}
+      <a  type="button" class="btn btn-default disabled" href='http://mikoto.site/{{ book.downurl }}'>不让你下载<span class="badge">999</span></a>
+      {% else %}
+                        {% if user.is_authenticated %}
+<a  type="button" class="btn btn-default" href='http://mikoto.site/{{ book.downurl }}'>下载<span class="badge">{{ book.xzl }}</span></a>
+            {% else %}
+<a  type="button" class="btn btn-default disabled" href='http://mikoto.site/{{ book.downurl }}'>登录后下载<span class="badge">{{ book.xzl }}</span></a>
+            {% endif %}
+      {% endif %}
+
+        <a  type="button" class="btn btn-default" href='http://mikoto.site/book/read/{{ book.id }}'>阅读</a>
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+      </div>
+    </div>
+  </div>
+</div>
+    <!-- Button trigger modal -->
+  </div>
+{% endfor %} 
+
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="container" style=" text-align:center;">
+
+    <ul class="pagination" id="pager">
+        {#上一页按钮开始#}
+        {# 如果当前页有上一页#}
+        {% if books.has_previous %}
+            {#  当前页的上一页按钮正常使用#}
+            <li class="previous"  style="opacity:0.8; filter:alpha(opacity=50);"><a href="/booklist/?page={{ books.previous_page_number }}">上一页</a></li>
+        {% else %}
+            {# 当前页的不存在上一页时,上一页的按钮不可用#}
+            <li class="previous disabled"  style="opacity:0.8; filter:alpha(opacity=50);"><a href="#">上一页</a></li>
+        {% endif %}
+        {#上一页按钮结束#}
+        {# 页码开始#}
+        {% for num in paginator.page_range %}
+
+            {% if num == currentPage %}
+                <li class="item active"><a href="/?page={{ num }}">{{ num }}</a></li>
+            {% else %}
+                <li class="item"><a href="/?page={{ num }}">{{ num }}</a></li>
+
+            {% endif %}
+        {% endfor %}
+        {#页码结束#}
+        {# 下一页按钮开始#}
+        {% if books.has_next %}
+            <li class="next"  style="opacity:0.8; filter:alpha(opacity=50);"><a href="/booklist/?page={{ books.next_page_number }}">下一页</a></li>
+        {% else %}
+            <li class="next disabled"  style="opacity:0.8; filter:alpha(opacity=50);"><a href="#">下一页</a></li>
+        {% endif %}
+        {# 下一页按钮结束#}
+    </ul>
+</div>
+  </body>
+  </html>
+{% endblock content %}
+        {% block footer %}
+        
+        {% endblock %}
